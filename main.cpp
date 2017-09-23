@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cstdio>
 using namespace std;
+
 class Student
 {
 	char name[40];
@@ -208,14 +209,14 @@ public:
 	}
 	void run() {
 		while (true) {
-			cout << "1.write students' data to file" << endl;
-			cout << "2.add student" << endl;
-			cout << "3.delete student by id" << endl;
-			cout << "4.search student by name" << endl;
-			cout << "5.search student by id" << endl;
-			cout << "6.search student by email" << endl;
-			cout << "7.update student info" << endl;
-			cout << "Please select your choice" << endl;
+			cout << "1.- Write students' data to file" << endl;
+			cout << "2.- Add student" << endl;
+			cout << "3.- Delete student by id" << endl;
+			cout << "4.- Search student by name" << endl;
+			cout << "5.- Search student by id" << endl;
+			cout << "6.- Search student by email" << endl;
+			cout << "7.- Update student info" << endl;
+			cout << "Please select your choice or enter any other value to terminate the program" << endl;
 			int choice;
 			cin >> choice;
 			cin.get();
@@ -309,6 +310,12 @@ public:
 					manager.updateStudentGradeOfProject(id, temp);
 				}
 				cout << "Done!" << endl << endl;
+			}
+			else
+			{
+				cout << "Terminating program...\n\nSee you later!" << endl;
+				exit(0);
+			
 			}
 		}	
 		
