@@ -203,7 +203,7 @@ class TUI {
 public:
 	TUI() {
 		string file;
-		cout << "Please enter the data file to initialize the database" << endl;
+		cout << "Please enter the data/file/name.txt to initialize the database: " ;
 		cin >> file;
 		manager.readStudentData(file);
 	}
@@ -216,12 +216,12 @@ public:
 			cout << "5.- Search student by id" << endl;
 			cout << "6.- Search student by email" << endl;
 			cout << "7.- Update student info" << endl;
-			cout << "Please select your choice or enter any other value to terminate the program" << endl;
+			cout << "Please select your choice or enter any other value to terminate the program: " ;
 			int choice;
 			cin >> choice;
 			cin.get();
 			if (choice == 1) {
-				cout << "Please enter the output file's name: ";
+				cout << "Please enter the output/file/name.txt: ";
 				string output;
 				cin >> output;
 				manager.writeStudentData(output);
