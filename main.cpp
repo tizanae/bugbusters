@@ -21,6 +21,7 @@ public:
 		strcpy(email, em);
 	}
 
+	// set get method
 	void setName(char *na) {
 		strcpy(name, na);
 	}
@@ -69,6 +70,7 @@ public:
 		return gradeOfProject;
 	}
 
+	//return the information string
 	string info() {
 		ostringstream oss;
 		oss << this->getName() << " " << this->getId() << " " << this->getEmail() << " " 
@@ -77,10 +79,12 @@ public:
 	}
 };
 
+// It's designed to maintain a vector which store the list of student's information
 class DataManager {
 	vector<Student> studentDatabase;
 public:
 	DataManager() {}
+	// read student into database from file
 	void readStudentData(string filename) {
 		studentDatabase.clear();
 		ifstream fin(filename);
@@ -93,6 +97,7 @@ public:
 		}
 		fin.close();
 	}
+	// write data to file
 	void writeStudentData(string filename) {
 		ofstream fout(filename);
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
@@ -101,10 +106,12 @@ public:
 		fout.close();
 	}
 
+	// add student to database
 	void addStudent(Student s) {
 		studentDatabase.push_back(s);
 	}
 
+	// delete student by id
 	bool deleteStudent(char *id) {
 		vector<Student>::iterator erasePos = studentDatabase.end();
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
@@ -116,6 +123,7 @@ public:
 		return studentDatabase.erase(erasePos) == erasePos;
 	}
 
+	// search student by name
 	void serachByName(char *name) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getName(), name) == 0) {
@@ -125,6 +133,7 @@ public:
 		}
 	}
 
+	//search student by id
 	void serachById(char *id) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -134,6 +143,7 @@ public:
 		}
 	}
 
+	//search student by email
 	void serachByEmail(char *email) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getEmail(), email) == 0) {
@@ -143,6 +153,7 @@ public:
 		}
 	}
 
+	//update student name
 	void updateStudentName(char *id, char *newName) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -152,6 +163,7 @@ public:
 		}
 	}
 
+	//update student id
 	void updateStudentId(char *id, char *newId) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -161,6 +173,7 @@ public:
 		}
 	}
 
+	//update student email
 	void updateStudentEmail(char *id, char *newEmail) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -170,6 +183,7 @@ public:
 		}
 	}
 
+	//update student grade of presentation
 	void updateStudentGradeOfPresentation(char *id, int grp) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -179,6 +193,7 @@ public:
 		}
 	}
 
+	//update student grade of essay
 	void updateStudentGradeOfEssay(char *id, int ge) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -188,6 +203,7 @@ public:
 		}
 	}
 
+	//update student grade of project
 	void updateStudentGradeOfProject(char *id, int gp) {
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			if (strcmp(it->getId(), id) == 0) {
@@ -201,12 +217,15 @@ public:
 class TUI {
 	DataManager manager;
 public:
+	//read file to initialize the database
 	TUI() {
 		string file;
 		cout << "Please enter the data/file/name.txt to initialize the database: " ;
 		cin >> file;
 		manager.readStudentData(file);
 	}
+	
+	//The system's running logic
 	void run() {
 		while (true) {
 			cout << "1.- Write students' data to file" << endl;
