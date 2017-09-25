@@ -536,6 +536,7 @@ class TUI {
 				}
 			}
 			else {
+				// Printing termination message and terminating program //
 				cout << endl << "Terminating program...\n\nSee you later!" << endl << endl;
 				exit(0);
 			}
