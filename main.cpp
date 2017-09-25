@@ -154,15 +154,19 @@ class DataManager {
 		fout.close();
 	}
 
-	// add student to database
+	// Declaring and defining the function that add a student to the database //
 	void addStudent(Student s) {
 		studentDatabase.push_back(s);
 	}
 
-	// delete student by id
+	// Declaring and defining the function that deletes a student by id //
 	bool deleteStudent(char *id) {
+		// Declaring and intializing a vector iterator //
 		vector<Student>::iterator erasePos = studentDatabase.end();
+		
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				erasePos = it;
 				break;
@@ -171,9 +175,11 @@ class DataManager {
 		return studentDatabase.erase(erasePos) == erasePos;
 	}
 
-	// search student by name
+	// Declaring and defining the function that searches a student by name //
 	void serachByName(char *name) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getName(), name) == 0) {
 				cout << it->info() << endl;
 				return;
@@ -181,9 +187,11 @@ class DataManager {
 		}
 	}
 
-	//search student by id
+	// Declaring and defining the function that searches a student by id //
 	void serachById(char *id) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				cout << it->info() << endl;
 				return;
@@ -191,9 +199,11 @@ class DataManager {
 		}
 	}
 
-	//search student by email
+	// Declaring and defining the function that searches a student by email //
 	void serachByEmail(char *email) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getEmail(), email) == 0) {
 				cout << it->info() << endl;
 				return;
@@ -201,9 +211,11 @@ class DataManager {
 		}
 	}
 
-	//update student name
+	// Declaring and defining the function that updates a student's name //
 	void updateStudentName(char *id, char *newName) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setName(newName);
 				return;
@@ -211,9 +223,11 @@ class DataManager {
 		}
 	}
 
-	//update student id
+	// Declaring and defining the function that updates a student's id //
 	void updateStudentId(char *id, char *newId) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setId(newId);
 				return;
@@ -221,9 +235,11 @@ class DataManager {
 		}
 	}
 
-	//update student email
+	// Declaring and defining the function that updates a student's email //
 	void updateStudentEmail(char *id, char *newEmail) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setEmail(newEmail);
 				return;
@@ -231,9 +247,11 @@ class DataManager {
 		}
 	}
 
-	//update student grade of presentation
+	// Declaring and defining the function that updates a student's grade of the presentation //
 	void updateStudentGradeOfPresentation(char *id, int grp) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setGradeOfPresentation(grp);
 				return;
@@ -241,9 +259,11 @@ class DataManager {
 		}
 	}
 
-	//update student grade of essay
+	// Declaring and defining the function that updates a student's grade of the essay //
 	void updateStudentGradeOfEssay(char *id, int ge) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setGradeOfEssay(ge);
 				return;
@@ -251,9 +271,11 @@ class DataManager {
 		}
 	}
 
-	//update student grade of project
+	// Declaring and defining the function that updates a student's grade of the project //
 	void updateStudentGradeOfProject(char *id, int gp) {
+		// Running through the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+			// Searching for the requested student //
 			if (strcmp(it->getId(), id) == 0) {
 				it->setGradeOfProject(gp);
 				return;
@@ -262,21 +284,32 @@ class DataManager {
 	}
 };
 
+// Declaring and defining the TUI class //
 class TUI {
+	// Declaring a DataManager variable //
 	DataManager manager;
-public:
-	//read file to initialize the database
+
+	public:
+	
+	// Reading a file to initialize the database //
 	TUI() {
+		// Declaring a string variable //
 		string file;
+
+		// Prompting for and reading in user input //
 		cout << "Please enter the data/file/name.txt to initialize the database: " ;
 		cin >> file;
+
+		// Passing user input to the data manager //
 		manager.readStudentData(file);
 	}
 	
-	//The system's running logic
+	// Declaring and defining the system's running logic //
 	void run() {
+		// Establishing constant while loop //
 		while (true) {
-			cout << "1.- Write students' data to file" << endl;
+			// Prompting for and reading in user input for a selection //
+			cout << "1.- Write students' data to a file" << endl;
 			cout << "2.- Add student" << endl;
 			cout << "3.- Delete student by id" << endl;
 			cout << "4.- Search student by name" << endl;
@@ -287,24 +320,41 @@ public:
 			int choice;
 			cin >> choice;
 			cin.get();
+
+			// Checking if the user wants to write student's data to a file //
 			if (choice == 1) {
-				cout << "Please enter the output/file/name.txt: ";
+				// Declaring a string variable //
 				string output;
+
+				// Prompting for and reading in the desired name of the output file //
+				cout << "Please enter the output/file/name.txt: ";
 				cin >> output;
+
+				// Passing user input to the data manager //
 				manager.writeStudentData(output);
-				cout << "Done!" << endl << endl;
+
+				// Printing success message //
+				cout << endl << "File creation done!" << endl << endl;
 			}
+			// Checking if the user wants to add a student //
 			else if (choice == 2) {
+				// Prompting for the new student information // 
 				cout << "Please enter the student's information on 1 line in the following format:\n" <<
 					"{Name(without spaces)   ID   Email   Presentation Grade   Essay Grade   Project Grade}" << endl;
-				string input;
-				getline(cin, input);
-				istringstream iss(input);
-				char name[40], id[10], email[40];
-				int gpre, ge, gpro;
+				
+				// Declaring variables and reading in the new student information //
+                                string input;
+                                getline(cin, input);
+                                istringstream iss(input);
+                                char name[40], id[10], email[40];
+                                int gpre, ge, gpro;
 				iss >> name >> id >> email >> gpre >> ge >> gpro;
+
+				// Passing user input to the data manager //
 				manager.addStudent(Student(name, id, email, gpre, ge, gpro));
-				cout << "Done!" << endl << endl;
+
+				// Printing success message //
+				cout << endl << "Student addition done!" << endl << endl;
 			}
 			else if (choice == 3) {
 				cout << "Please enter the student's id:" << endl;
