@@ -1,3 +1,13 @@
+//===============================================================================================================================//
+//=09/26/2017                                                                           	       			main.cpp=//
+//=Alexander Alava                                                                                    		       U35432961=//
+//=David Hoambrecker										      	               U09161932=//
+//=Linqi Wang											      		       U03948584=//
+//=Tizanae Nziramasanga										      		       U03337450=//
+//=                                                                                                            			=//
+//=                      This is the implementation file for the original version of the student database                       =//
+//===============================================================================================================================//
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,71 +16,88 @@
 #include <cstdio>
 using namespace std;
 
+// Declaring and defining the Student class //
 class Student
 {
+	// Declaring data members of the class //
 	char name[40];
 	char usf_id[10];
 	char email[40];
 	int gradeOfPresentation;
 	int gradeOfEssay;
 	int gradeOfProject;
-public:
+
+	public:
+	
+	// Declaring and defining the constructor for the class //
 	Student(char *na, char *id, char * em, int gpre, int ge, int gpro) : gradeOfPresentation(gpre), gradeOfEssay(ge), gradeOfProject(gpro){
+		// Initializing data members from values passed as parameters //
 		strcpy(name, na);
 		strcpy(usf_id, id);
 		strcpy(email, em);
 	}
 
-	// set get method
+	// Declaring and defining the set method for the name //
 	void setName(char *na) {
 		strcpy(name, na);
 	}
 
+	// Declaring and defining the get method for the name //
 	char *getName() {
 		return name;
 	}
 
+	// Declaring and defining the set method for the ID //
 	void setId(char *id) {
 		strcpy(usf_id, id);
 	}
 
+	// Declaring and defining the get method for the ID //
 	char *getId() {
 		return usf_id;
 	}
 
+	// Declaring and defining the set method for the email //
 	void setEmail(char *em) {
 		strcpy(email, em);		
 	}
 
+	// Declaring and defining the get method for the email //
 	char *getEmail() {
 		return email;
 	}
 
+	// Declaring and defining the set method for the presentation grade //
 	void setGradeOfPresentation(int gpre) {
 		gradeOfPresentation = gpre;
 	}
 
+	// Declaring and defining the get method for the presentation grade //
 	int getGradeOfPresentation() {
 		return gradeOfPresentation;
 	}
 
+	// Declaring and defining the set method for the essay grade //
 	void setGradeOfEssay(int ge) {
 		gradeOfEssay = ge;
 	}
 
+	// Declaring and defining the get method for the essay grade //
 	int getGradeOfEssay() {
 		return gradeOfEssay;
 	}
 
+	// Declaring and defining the set method for the project grade //
 	void setGradeOfProject(int gro) {
 		gradeOfProject = gro;
 	}
 
+	// Declaring and defining the get method for the project grade //
 	int getGradeOfProject() {
 		return gradeOfProject;
 	}
 
-	//return the information string
+	// Declaring and defining the info function that returns all the information as a string //
 	string info() {
 		ostringstream oss;
 		oss << this->getName() << " " << this->getId() << " " << this->getEmail() << " " 
@@ -79,30 +106,51 @@ public:
 	}
 };
 
-// It's designed to maintain a vector which store the list of student's information
+// Declaring and defining the data manager class that will maintain a vector storing the list of student's information //
 class DataManager {
+	// Declaring a vector of students //
 	vector<Student> studentDatabase;
-public:
+
+	public:
+	
+	// Declaring the constructor //
 	DataManager() {}
-	// read student into database from file
+
+	// Declaring and defining the function that reads student into database from file
 	void readStudentData(string filename) {
+		// Clearing current vector //
 		studentDatabase.clear();
+
+		// Receiving a file as an input stream //
 		ifstream fin(filename);
+
+		// Declaring temporary variables to process the file //
 		char temp_name[40];
 		char temp_id[40];
 		char temp_email[40];
 		int gpre, ge, gp;
+
+		// Running through the inputted file and collecting information //
 		while (fin >> temp_name >> temp_id >> temp_email >> gpre >> ge >> gp) {
 			studentDatabase.push_back(Student(temp_name, temp_id, temp_email, gpre, ge, gp));
 		}
+	
+		// Closing file input //
 		fin.close();
 	}
-	// write data to file
+
+	// Declaring and defining the function that writes the current information to a text file // 
 	void writeStudentData(string filename) {
+		
+		// Outputting information to output stream //
 		ofstream fout(filename);
+
+		// Running through all the current information in the vector of students //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
 			fout << it->info() << endl;
 		}
+
+		// Closing file output //
 		fout.close();
 	}
 
@@ -247,7 +295,8 @@ public:
 				cout << "Done!" << endl << endl;
 			}
 			else if (choice == 2) {
-				cout << "Please enter the student's information on 1 line( name id email presentationGrade essayGrade projectGrade):" << endl;
+				cout << "Please enter the student's information on 1 line in the following format:\n" <<
+					"{Name(without spaces)   ID   Email   Presentation Grade   Essay Grade   Project Grade}" << endl;
 				string input;
 				getline(cin, input);
 				istringstream iss(input);
