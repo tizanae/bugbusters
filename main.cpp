@@ -162,9 +162,19 @@ class DataManager {
 
 	// Declaring and defining the function that add a student to the database //
 	void addStudent(Student s) {
-		studentDatabase.push_back(s);
+		bool id_exists = false;
+		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it){
+			if (strcmp(s.getId(),it->getId()) == 0){
+				cout << "\nThis ID already exists, unique ID needed. Failed to add ID " << s.getId() << endl<<endl;
+				id_exists = true;
+			}
+		}
+		if (id_exists == false){
+			studentDatabase.push_back(s);
+			// Printing success message //
+			cout << endl << "Student addition done!" << endl << endl;
+		}
 	}
-
 	// Declaring and defining the function that deletes a student by id //
 	bool deleteStudent(char *id) {
 		// Declaring and intializing a vector iterator //
@@ -396,8 +406,6 @@ class TUI {
 				// Passing user input to the data manager //
 				manager.addStudent(Student(name, id, email, gpre, ge, gpro));
 
-				// Printing success message //
-				cout << endl << "Student addition done!" << endl << endl;
 			}
 			// Checking if the user wants to delete a student by id //
 			else if (choice == 3) {
