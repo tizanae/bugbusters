@@ -1,0 +1,30 @@
+Bug 1
+Line 310:
+	Original: manager.updateStudentId(id, newid);
+	Buggy: manager.updateStudentId(newid, id);
+	Causes program to fail to update student id
+	
+Bug 2	
+Line 96: 
+	Original: studentDatabase.push_back(Student(temp_name, temp_id, temp_email, gpre, gp, ge));
+	Buggy: studentDatabase.push_back(Student(temp_name, temp_id, temp_email, gpre, ge, gp));
+	Causes program to assign student project grades as essay grades and vice versa when reading from data file
+
+Bug 3
+Line 334:
+	Original: else
+	Buggy: else if (choice > 7)
+	Causes program to enter an infinite loop if the value entered is not an integer greater than 0
+	
+Bug 4
+Line 257:
+	Original: iss >> name >> id >> email >> gpre >> ge >> gpro
+	Buggy: cin >> name >> id >> email >> gpre >> ge >> gpro
+	Causes program to continuously ask for input 
+	
+Bug 5
+Line 149:
+	Original: for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it) {
+	Buggy: for (vector<Student>::iterator it = studentDatabase.begin(); it == studentDatabase.end(); ++it) {
+	Makes it impossible to search for student by email because program fails to iterate through database 
+	
