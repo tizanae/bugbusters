@@ -355,7 +355,30 @@ class TUI {
 
 		return spaces;
 	}
+	// function that evaluates is input ends with ending
+	bool endswith(char* input, char* ending, int num){
+		int input_len = strlen(input);
+		vector<char> suffix;
+		char* input_ending;
+		input_ending = new char[num];
+		if (input_len < num){		//too short
+			return false;
+		}else{
+			for(int i = input_len; i >= input_len - num; --i){
+				suffix.push_back(input[i]);
+			}
+			reverse(suffix.begin(), suffix.end());
+			for (int i = 0; i < num; i++) {
+	    		input_ending[i] = suffix[i];
+			}
+			if (strcmp(input_ending, ending) == 0){
+				return true;
+			}else{
+				return false;
+			}
+		}
 
+	}
 	// Declaring and defining the system's running logic //
 	void run() {
 		// Declaring and initializing boolean flag for message printing //
@@ -451,6 +474,15 @@ class TUI {
 				if (gpro != "0" && gpro != "1" && gpro != "2" && gpro != "3" && gpro != "4"){
 					// Printing error message and setting flag to false //
 					cout << endl << "Project Grade is invalid.";
+					createStudent = false;
+				}
+				//Checking if email address is valid usf email
+				char  domain1 []= "@usf.edu";
+				char domain2 []= "@mail.usf.edu";
+				if (endswith(email, domain1, 8) == true || endswith(email, domain2, 13) == true){
+					createStudent = true;
+				}else{
+					cout << endl << "USF email address required. Please try again...";
 					createStudent = false;
 				}
 
