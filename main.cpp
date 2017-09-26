@@ -147,7 +147,7 @@ class DataManager {
 			}
 	// Declaring and defining the function that writes the current information to a text file // 
 	void writeStudentData(string filename) {
-		
+
 		// Outputting information to output stream //
 		ofstream fout(filename);
 
@@ -347,11 +347,17 @@ class TUI {
 
 				// Prompting for and reading in the desired name of the output file //
 				cout << "Please enter the output/file/name.txt: ";
-				cin >> output;
+				while (true){
+					cin >> output;
 
-				// Passing user input to the data manager //
-				manager.writeStudentData(output);
-
+					// Passing user input to the data manager //
+					manager.writeStudentData(output);
+					if (manager.file_exists(output) == true){
+						break;
+					} else {
+						cout << "File creation failed. Please check file path and try again: ";
+					}
+				}
 				// Printing success message //
 				cout << endl << "File creation done!" << endl << endl;
 			}
@@ -544,7 +550,7 @@ class TUI {
 				}
 				else {
 					// Printing error message //
-					cout << endl << "No student was found with that email address!\n\nReturning to main menu..." << endl << endl;
+					cout << endl << "No student was found with that ID!\n\nReturning to main menu..." << endl << endl;
 				}
 			}
 			else {
