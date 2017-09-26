@@ -419,7 +419,7 @@ class TUI {
 					// Checking if the spacecount is the desired for validation purposes //
                                 	if (spacecount(input) > 5 || spacecount(input) < 5){
 						// Printing errorm message //
-                                		cout << endl << "Input format incorrect, please try again..." << endl;
+                                		cout << endl << "Input format incorrect.\n\nPlease try again!" << endl;
 					}
 					else {
 						break;
@@ -429,14 +429,45 @@ class TUI {
 				// Declaring temporary variables //				
                                 istringstream iss(input);
                                 char name[40], id[10], email[40];
-                                int gpre, ge, gpro;
-               
+                                string gpre, ge, gpro;
+				bool createStudent = true;               			
+
 				// Setting an input stream string //
 				iss >> name >> id >> email >> gpre >> ge >> gpro;
-				
-				// Passing user input to the data manager //
-				manager.addStudent(Student(name, id, email, gpre, ge, gpro));
 
+				// Checking if the presentation grade is valid //			
+				if (gpre != "0" && gpre != "1" && gpre != "2" && gpre != "3" && gpre != "4") {
+					// Printing error message and setting flag to false //
+					cout << endl << "Presentation Grade is invalid.";
+					createStudent = false;
+				}
+				// Checking if the essay grade is valid //
+				if (ge != "0" && ge != "1" && ge != "2" && ge != "3" && ge != "4") {
+					// Printing error message and setting flag to false //
+					cout << endl << "Essay Grade is invalid.";
+					createStudent = false;
+				}
+				// Checking if the project grade is valid //
+				if (gpro != "0" && gpro != "1" && gpro != "2" && gpro != "3" && gpro != "4"){
+					// Printing error message and setting flag to false //
+					cout << endl << "Project Grade is invalid.";
+					createStudent = false;
+				}
+
+				// Checking if the information is valid and a student can be created //
+				if (createStudent) {
+					// Converting characters to integers // 
+					int gpreInt = gpre[0] - '0';
+					int geInt = ge[0] - '0';
+					int gproInt = gpro[0] - '0';
+
+					// Passing user input to the data manager //
+					manager.addStudent(Student(name, id, email, gpreInt, geInt, gproInt));
+				}
+				else {
+					// Printing final error message //
+					cout << endl << endl << "Please try again!" << endl << endl;
+				}
 			}
 			// Checking if the user wants to delete a student by id //
 			else if (choice == 3) {

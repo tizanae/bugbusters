@@ -47,3 +47,12 @@ Bug 9
 	~ 164 addStudent()
 	Original: check studentDatabase to see if the ID exists and does not add record if it does - ID's are unique.
 	Buggy: No check therefore several records can have the same ID
+
+Bug 10
+	~ 263 (choice == 3)
+	Original: Initialize character array id
+	Buggy: No initialization which can cause a segmentation fault for lack of memory allocation
+
+Bug 11 ~373 (choice == 2)
+	Original: Data validation for presentation, essay and project grades
+	Buggy: No validation of the grades and therefore anything can be inputted 
