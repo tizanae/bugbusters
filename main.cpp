@@ -140,6 +140,11 @@ class DataManager {
 		fin.close();
 	}
 
+	//check if file exists
+	bool file_exists( const string& file){
+				ifstream f(file.c_str());
+				return f.good();
+			}
 	// Declaring and defining the function that writes the current information to a text file // 
 	void writeStudentData(string filename) {
 		
@@ -299,11 +304,18 @@ class TUI {
 	TUI() {
 		// Declaring a string variable //
 		string file;
-
-		// Prompting for and reading in user input //
-		cout << "Please enter the data/file/name.txt to initialize the database: " ;
-		cin >> file;
-
+		string msg[] = {"Please enter the data/file/name.txt to initialize the database: ", "File does not exist, please enter a valid file/name.txt: "};
+		int i = 0;
+		while (true){
+			// Prompting for and reading in user input //
+			cout << msg[i];
+			cin >> file;
+			if (manager.file_exists(file) == false){
+				i = 1;
+			} else {
+				break;
+			}
+		}
 		// Passing user input to the data manager //
 		manager.readStudentData(file);
 	}
