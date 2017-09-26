@@ -28,3 +28,22 @@ Line 149:
 	Buggy: for (vector<Student>::iterator it = studentDatabase.begin(); it == studentDatabase.end(); ++it) {
 	Makes it impossible to search for student by email because program fails to iterate through database 
 	
+Bug 6
+	~ line 323 TUI(){}
+	Original: uses file_exists() method to ensure the file was created
+	Buggy: no check exists so bad file path can result in new student addition causing seg fault since studentDatabase will be empty 
+
+Bug 7
+	~ 149 writeStudentData()
+	Original: uses file_exists() method to ensure the file was created
+	Buggy: no check exists so bad file path results in no actual output file
+
+Bug 8
+	~ 373 (choice == 2)
+	Original: uses spacecount() to check number of spaces in input string and rejects user input for retry if there are < 5 or > 5 spaces : not the right number of data fields
+	Buggy: inconsitent record fields since any input length will result in some form of record
+
+Bug 9
+	~ 164 addStudent()
+	Original: check studentDatabase to see if the ID exists and does not add record if it does - ID's are unique.
+	Buggy: No check therefore several records can have the same ID
