@@ -319,7 +319,15 @@ class TUI {
 		// Passing user input to the data manager //
 		manager.readStudentData(file);
 	}
-	
+	//check number of spaces in string
+	int spacecount( const string& input_str ){
+		int spaces = 0;
+		for (int i = 0; i < input_str.size(); ++i)
+			if (input_str[i] == ' ') ++spaces;
+
+		return spaces;
+	}
+
 	// Declaring and defining the system's running logic //
 	void run() {
 		// Declaring and initializing boolean flag for message printing //
@@ -364,17 +372,27 @@ class TUI {
 			// Checking if the user wants to add a student //
 			else if (choice == 2) {
 				// Prompting for the new student information // 
-				cout << "Please enter the student's information on 1 line in the following format:\n" <<
-					"{Name(without spaces)   ID   Email   Presentation Grade   Essay Grade   Project Grade}" << endl;
-				
-				// Declaring variables and reading in the new student information //
-                                string input;
+				string input;
+				while (true){
+					cout << "Please enter the student's information on 1 line in the following format:\n" <<
+						"{Name(without spaces)   ID   Email   Presentation Grade   Essay Grade   Project Grade}" << endl;
+					
+					// Declaring variables and reading in the new student information //
+                                
                                 getline(cin, input);
+                                if (spacecount(input) > 5 || spacecount(input) < 5){
+                                	cout << "Input format incorrect, please try again..." << endl;
+
+								}else{
+									break;
+								}
+				}				
                                 istringstream iss(input);
                                 char name[40], id[10], email[40];
                                 int gpre, ge, gpro;
+               
 				iss >> name >> id >> email >> gpre >> ge >> gpro;
-
+				
 				// Passing user input to the data manager //
 				manager.addStudent(Student(name, id, email, gpre, ge, gpro));
 
