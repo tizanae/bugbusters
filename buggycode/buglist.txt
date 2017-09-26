@@ -56,3 +56,7 @@ Bug 10
 Bug 11 ~373 (choice == 2)
 	Original: Data validation for presentation, essay and project grades
 	Buggy: No validation of the grades and therefore anything can be inputted 
+
+Bug 12
+	Original: validates usf emails against @mail.usf.edu / @usf.edu
+	Buggy: no email validation
