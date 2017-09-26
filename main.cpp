@@ -140,11 +140,12 @@ class DataManager {
 		fin.close();
 	}
 
-	//check if file exists
-	bool file_exists( const string& file){
-				ifstream f(file.c_str());
-				return f.good();
-			}
+	// Declaring and defining the function that checks if the file to be inputted exists //
+	bool file_exists(const string& file){
+		ifstream f(file.c_str());
+		return f.good();
+	}
+	
 	// Declaring and defining the function that writes the current information to a text file // 
 	void writeStudentData(string filename) {
 
@@ -162,19 +163,25 @@ class DataManager {
 
 	// Declaring and defining the function that add a student to the database //
 	void addStudent(Student s) {
+		// Declaring and initializing boolean flag //
 		bool id_exists = false;
+		
+		// Running through the database to check if the id is already in the system //
 		for (vector<Student>::iterator it = studentDatabase.begin(); it != studentDatabase.end(); ++it){
-			if (strcmp(s.getId(),it->getId()) == 0){
+			if (strcmp(s.getId(),it->getId()) == 0) {
+				// Printing error message and setting flag to true //
 				cout << "\nThis ID already exists, unique ID needed. Failed to add ID " << s.getId() << endl<<endl;
 				id_exists = true;
 			}
 		}
+		// Checking if id is unique //
 		if (id_exists == false){
 			studentDatabase.push_back(s);
 			// Printing success message //
 			cout << endl << "Student addition done!" << endl << endl;
 		}
 	}
+
 	// Declaring and defining the function that deletes a student by id //
 	bool deleteStudent(char *id) {
 		// Declaring and intializing a vector iterator //
@@ -312,28 +319,39 @@ class TUI {
 	
 	// Reading a file to initialize the database //
 	TUI() {
-		// Declaring a string variable //
+		// Declaring a string and a string character variables //
 		string file;
 		string msg[] = {"Please enter the data/file/name.txt to initialize the database: ", "File does not exist, please enter a valid file/name.txt: "};
+		
+		// Declaring an integer variable that will serve as index //
 		int i = 0;
+
+		// Establishing a while loop to valide the input //
 		while (true){
 			// Prompting for and reading in user input //
 			cout << msg[i];
 			cin >> file;
+
+			// Validating file inputted //
 			if (manager.file_exists(file) == false){
 				i = 1;
-			} else {
+			} 
+			else {
 				break;
 			}
 		}
 		// Passing user input to the data manager //
 		manager.readStudentData(file);
 	}
-	//check number of spaces in string
-	int spacecount( const string& input_str ){
+	// Declaring and defining the function that checks the number of spaces in a string //
+	int spacecount(const string& input_str) {
+		// Declaring integer variable //
 		int spaces = 0;
-		for (int i = 0; i < input_str.size(); ++i)
+
+		// Establishing a for loop to get a count of white spaces //
+		for (int i = 0; i < input_str.size(); ++i) {
 			if (input_str[i] == ' ') ++spaces;
+		}
 
 		return spaces;
 	}
@@ -363,16 +381,23 @@ class TUI {
 				// Declaring a string variable //
 				string output;
 
-				// Prompting for and reading in the desired name of the output file //
+				// Prompting for the desired name of the output file //
 				cout << "Please enter the output/file/name.txt: ";
+				
+				// Establishing a while loop to confirm that the file is properly created //
 				while (true){
+					// Reading user input for the desired name //
 					cin >> output;
 
 					// Passing user input to the data manager //
 					manager.writeStudentData(output);
+
+					// Checking if the file was successfully created //
 					if (manager.file_exists(output) == true){
 						break;
-					} else {
+					} 
+					else {
+						// Printing error message //
 						cout << "File creation failed. Please check file path and try again: ";
 					}
 				}
@@ -381,26 +406,32 @@ class TUI {
 			}
 			// Checking if the user wants to add a student //
 			else if (choice == 2) {
-				// Prompting for the new student information // 
+				// Declaring string variable // 
 				string input;
+
+				// Setting while loop to validate user input //
 				while (true){
+					// Prompting for and reading in user input for all the information //
 					cout << "Please enter the student's information on 1 line in the following format:\n" <<
 						"{Name(without spaces)   ID   Email   Presentation Grade   Essay Grade   Project Grade}" << endl;
-					
-					// Declaring variables and reading in the new student information //
-                                
-                                getline(cin, input);
-                                if (spacecount(input) > 5 || spacecount(input) < 5){
-                                	cout << "Input format incorrect, please try again..." << endl;
+                                	getline(cin, input);
 
-								}else{
-									break;
-								}
-				}				
+					// Checking if the spacecount is the desired for validation purposes //
+                                	if (spacecount(input) > 5 || spacecount(input) < 5){
+						// Printing errorm message //
+                                		cout << endl << "Input format incorrect, please try again..." << endl;
+					}
+					else {
+						break;
+					}
+				}
+
+				// Declaring temporary variables //				
                                 istringstream iss(input);
                                 char name[40], id[10], email[40];
                                 int gpre, ge, gpro;
                
+				// Setting an input stream string //
 				iss >> name >> id >> email >> gpre >> ge >> gpro;
 				
 				// Passing user input to the data manager //
