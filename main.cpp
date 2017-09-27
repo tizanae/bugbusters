@@ -457,7 +457,18 @@ class TUI {
 
 				// Setting an input stream string //
 				iss >> name >> id >> email >> gpre >> ge >> gpro;
+				
+				// Checking if email address is a valid usf email //
+                                char  domain1 []= "@usf.edu";
+                                char domain2 []= "@mail.usf.edu";
 
+                                // Checking if the email matches the required endings //
+                                if (!(endswith(email, domain1, 8) == true || endswith(email, domain2, 13) == true)) {
+                                        // Printing error message and setting flag to false //
+                                        cout << endl << "Email is invalid, USF email address required.";
+                                        createStudent = false;
+                                }
+				
 				// Checking if the presentation grade is valid //			
 				if (gpre != "0" && gpre != "1" && gpre != "2" && gpre != "3" && gpre != "4") {
 					// Printing error message and setting flag to false //
@@ -474,15 +485,6 @@ class TUI {
 				if (gpro != "0" && gpro != "1" && gpro != "2" && gpro != "3" && gpro != "4"){
 					// Printing error message and setting flag to false //
 					cout << endl << "Project Grade is invalid.";
-					createStudent = false;
-				}
-				//Checking if email address is valid usf email
-				char  domain1 []= "@usf.edu";
-				char domain2 []= "@mail.usf.edu";
-				if (endswith(email, domain1, 8) == true || endswith(email, domain2, 13) == true){
-					createStudent = true;
-				}else{
-					cout << endl << "USF email address required. Please try again...";
 					createStudent = false;
 				}
 
@@ -612,13 +614,22 @@ class TUI {
 					else if (item == 3) {
 						// Declaring a character array variable //
 						char email[40];
+                                		char  domain1 []= "@usf.edu";
+                                		char domain2 []= "@mail.usf.edu";						
 
 						// Prompting for and reading in user input for the new email //
 						cout << endl << "Please enter the updated email address:" << endl;
 						cin >> email;
 
-						// Passing user input to the data manager //
-						manager.updateStudentEmail(id, email);
+						if (!(endswith(email, domain1, 8) == true || endswith(email, domain2, 13) == true)) {
+                                        		// Printing error message and setting flag to false //
+                                        		cout << endl << "Email is invalid, USF email address required." << endl << endl;
+                                			flag = false;
+						}
+						else {
+							// Passing user input to the data manager //
+							manager.updateStudentEmail(id, email);
+						}
 					}
 					// Checking if user wants to update the student's presentation grade //
 					else if(item == 4){
@@ -629,8 +640,16 @@ class TUI {
 						cout << endl << "Please enter the updated presentation grade:" << endl;
 						cin >> temp;
 
-						// Passing user input to the data manager //
-						manager.updateStudentGradeOfPresentation(id, temp);
+						// Checking if user input is valid //
+						if (temp >= 0 && temp <= 4) {
+							// Passing user input to the data manager //
+							manager.updateStudentGradeOfPresentation(id, temp);
+						}
+						else {
+							// Printing error message //
+							cout << "Presentation Grade is invalid.\n\nPlease try again!" << endl << endl;
+							flag = false;
+						} 
 					}
 					// Checking if user wants to update the student's essay grade //
 					else if (item == 5) {
@@ -641,8 +660,16 @@ class TUI {
 						cout << endl << "Please enter the updated essay grade:" << endl;
 						cin >> temp;
 
-						// Passing user input to the data manager //
-						manager.updateStudentGradeOfEssay(id, temp);
+						// Checking if user input is valid //
+						if (temp >= 0 && temp <= 4) {
+							// Passing user input to the data manager //
+							manager.updateStudentGradeOfEssay(id, temp);
+						}
+						else {
+							// Printing error message //
+                                                        cout << "Essay Grade is invalid.\n\nPlease try again!" << endl << endl;
+                                               		flag = false;
+						 }
 					}
 					// Checking if user wants to update the student's project grade //
 					else if (item == 6) {
@@ -653,8 +680,16 @@ class TUI {
 						cout << endl << "Please enter the updated project grade:" << endl;
 						cin >> temp;
 
-						// Passing user input to the data manager //
-						manager.updateStudentGradeOfProject(id, temp);
+						// Checking if user input is valid //
+						if (temp >= 0 && temp <= 4) {
+							// Passing user input to the data manager //
+							manager.updateStudentGradeOfProject(id, temp);
+						}
+						else {
+							// Printing error message //
+                                                        cout << "Project Grade is invalid.\n\nPlease try again!" << endl << endl;
+                                                	flag = false;
+						}
 					}
 					else {
 						// Printing error message and setting flag to false //
